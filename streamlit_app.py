@@ -60,7 +60,7 @@ def recommend_movie(pivot, data, movies, user_id, n=2):
 # main
 def main():
 
-   font_dirs = [os.getcwd() + '/Nanum_Gothic']
+    font_dirs = [os.getcwd() + '/Nanum_Gothic']
     font_files = fm.findSystemFonts(fontpaths=font_dirs)
     for font_file in font_files:
         fm.fontManager.addfont(font_file)
