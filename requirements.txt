@@ -3,4 +3,4 @@ pandas
 numpy
 matplotlib
 seaborn
-platform
+rich<14
