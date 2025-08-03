@@ -6,11 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import os
 
-
-    
-
-
-
+ 
 # 데이터 로딩
 @st.cache_data
 def data_load():
@@ -73,10 +69,8 @@ def main():
 
 
     st.title("사용자 기반 영화 추천 시스템")
-    st.markdown("**유사 사용자 기반 협업 필터링**으로 추천합니다.")
-    
-     # 폰트 설정 (한글 깨짐 방지)
-    set_korean_font()
+    st.markdown("**유사 사용자 기반 협업 필터링**으로 추천합니다.")    
+   
     
     with st.spinner("데이터 로딩 중..."):
         movies, users, ratings = data_load()
