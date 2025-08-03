@@ -13,16 +13,17 @@ def set_korean_font():
     elif system == 'Darwin':
         plt.rcParams['font.family'] = 'AppleGothic'
     else:
-        # Linux 환경 (ex. Ubuntu 기반 Streamlit Cloud)
-        try:
-            subprocess.run(['apt-get', 'install', '-y', 'fonts-nanum'], check=True)
-        except:
-            pass
-        plt.rcParams['font.family'] = 'NanumGothic'
+        # 리눅스 계열 - NanumGothic 설치 후 적용
+        font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"
+        if fm.findSystemFonts(fontpaths=['/usr/share/fonts/truetype/nanum']):
+            nanum_font = fm.FontProperties(fname=font_path).get_name()
+            plt.rcParams['font.family'] = nanum_font
+        else:
+            print("❗ 한글 폰트(NanumGothic)가 설치되어 있지 않습니다.")
 
     plt.rcParams['axes.unicode_minus'] = False
 
-set_korean_font()
+
 
 # 데이터 로딩
 @st.cache_data
@@ -72,6 +73,8 @@ def recommend_movie(pivot, data, movies, user_id, n=2):
 
 # main
 def main():
+
+    set_korean_font()
     st.title("사용자 기반 영화 추천 시스템")
     st.markdown("**유사 사용자 기반 협업 필터링**으로 추천합니다.")
     
