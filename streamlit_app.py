@@ -7,19 +7,20 @@ import matplotlib.font_manager as fm
 import platform
 
 def set_korean_font():
-    if platform.system() == 'Windows':
+    system = platform.system()
+    if system == 'Windows':
         plt.rcParams['font.family'] = 'Malgun Gothic'
-    elif platform.system() == 'Darwin':
+    elif system == 'Darwin':
         plt.rcParams['font.family'] = 'AppleGothic'
     else:
-        # Linux (Colab 포함)
-        import matplotlib
-        import matplotlib.font_manager as fm
-        matplotlib.rcParams['font.family'] = 'NanumGothic'
-        !apt-get -qq install -y fonts-nanum > /dev/null
-        fm._rebuild()
+        # Linux 환경 (ex. Ubuntu 기반 Streamlit Cloud)
+        try:
+            subprocess.run(['apt-get', 'install', '-y', 'fonts-nanum'], check=True)
+        except:
+            pass
+        plt.rcParams['font.family'] = 'NanumGothic'
 
-    plt.rcParams['axes.unicode_minus'] = False  # 마이너스 기호 깨짐 방지
+    plt.rcParams['axes.unicode_minus'] = False
 
 set_korean_font()
 
