@@ -7,13 +7,16 @@ import matplotlib.font_manager as fm
 import platform
 
 def set_korean_font():
-    font_path = '/usr/share/fonts/truetype/nanum/NanumGothic.ttf'
-    try:
-        font_prop = fm.FontProperties(fname=font_path)
-        plt.rcParams['font.family'] = font_prop.get_name()
-    except:
-        st.warning("❗ NanumGothic 폰트를 찾을 수 없습니다.")
-    plt.rcParams['axes.unicode_minus'] = False
+    font_dirs = [os.getcwd() + '/Nanum_Gothic']
+    font_files = fm.findSystemFonts(fontpaths=font_dirs)
+    for font_file in font_files:
+        fm.fontManager.addfont(font_file)
+    
+    fm._load_fontmanager(try_read_cache=False)
+    fontNames = [f.name for f in fm.fontManager.ttflist]
+    fontname = st.selectbox("폰트 선택", unique_font(fontNames))
+    
+    plt.rc('font', family=fontname)
 
 
 
