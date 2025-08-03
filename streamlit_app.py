@@ -8,6 +8,7 @@ import os
 
 fpath = os.path.join(os.getcwd(), 'Nanum_Gothic/NanumGothic-Bold.ttf')
 prop = fm.FontProperties(fname=fpath)
+plt.rc('font', family=prop.get_name()) 
  
 # 데이터 로딩
 @st.cache_data
@@ -60,7 +61,7 @@ def main():
 
   
     
-    plt.rc('font', family=prop)
+  
 
 
     st.title("사용자 기반 영화 추천 시스템")
