@@ -3,6 +3,25 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
+import platform
+
+def set_korean_font():
+    if platform.system() == 'Windows':
+        plt.rcParams['font.family'] = 'Malgun Gothic'
+    elif platform.system() == 'Darwin':
+        plt.rcParams['font.family'] = 'AppleGothic'
+    else:
+        # Linux (Colab 포함)
+        import matplotlib
+        import matplotlib.font_manager as fm
+        matplotlib.rcParams['font.family'] = 'NanumGothic'
+        !apt-get -qq install -y fonts-nanum > /dev/null
+        fm._rebuild()
+
+    plt.rcParams['axes.unicode_minus'] = False  # 마이너스 기호 깨짐 방지
+
+set_korean_font()
 
 # 데이터 로딩
 @st.cache_data
@@ -48,11 +67,16 @@ def recommend_movie(pivot, data, movies, user_id, n=2):
     unseen = set(similar_data['MovieID']) - set(seen.index)
     return movies[movies['MovieID'].isin(unseen)].reset_index(drop=True), sim_user_corr
 
+
+
 # main
 def main():
     st.title("사용자 기반 영화 추천 시스템")
     st.markdown("**유사 사용자 기반 협업 필터링**으로 추천합니다.")
-
+    
+     # 폰트 설정 (한글 깨짐 방지)
+    set_korean_font()
+    
     with st.spinner("데이터 로딩 중..."):
         movies, users, ratings = data_load()
         full_data, recommendation_data = data_merge(movies, users, ratings)
