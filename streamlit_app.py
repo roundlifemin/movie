@@ -6,17 +6,8 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import os
 
-def set_korean_font():
-    font_dirs = [os.getcwd() + '/Nanum_Gothic']
-    font_files = fm.findSystemFonts(fontpaths=font_dirs)
-    for font_file in font_files:
-        fm.fontManager.addfont(font_file)
+
     
-    fm._load_fontmanager(try_read_cache=False)
-    fontNames = [f.name for f in fm.fontManager.ttflist]
-    fontname = st.selectbox("폰트 선택", unique_font(fontNames))
-    
-    plt.rc('font', family=fontname)
 
 
 
@@ -69,7 +60,18 @@ def recommend_movie(pivot, data, movies, user_id, n=2):
 # main
 def main():
 
-    set_korean_font()
+   font_dirs = [os.getcwd() + '/Nanum_Gothic']
+    font_files = fm.findSystemFonts(fontpaths=font_dirs)
+    for font_file in font_files:
+        fm.fontManager.addfont(font_file)
+    
+    fm._load_fontmanager(try_read_cache=False)
+    fontNames = [f.name for f in fm.fontManager.ttflist]
+    fontname = st.selectbox("폰트 선택", unique_font(fontNames))
+    
+    plt.rc('font', family=fontname)
+
+
     st.title("사용자 기반 영화 추천 시스템")
     st.markdown("**유사 사용자 기반 협업 필터링**으로 추천합니다.")
     
