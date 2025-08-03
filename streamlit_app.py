@@ -4,7 +4,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
-import platform
+import os
 
 def set_korean_font():
     font_dirs = [os.getcwd() + '/Nanum_Gothic']
